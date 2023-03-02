@@ -1,6 +1,7 @@
 // Domain - repository, rules of getting and data management
 import Cocktail from "./Cocktail";
 import {Api, FakeApi} from "../data/api";
+import * as LocalStore from "../data/local_store";
 
 export default class DataRepository{
     async getRandomCocktail(){
@@ -8,6 +9,12 @@ export default class DataRepository{
         const responseData = await Api.getRandom();
         console.log(responseData);
         return new Cocktail(responseData);
+    }
+    saveToHistory(cocktail){
+        LocalStore.saveCocktailToStore(cocktail);
+    }
+    getHistoryList(){
+        return LocalStore.getHistoryFromStore();
     }
 }
 
